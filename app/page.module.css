@@ -1,0 +1,32 @@
+/* Basic Grid Structure */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px 0;
+}
+.column {
+  padding: 15px;
+  box-sizing: border-box;
+}
+/* Responsive Grid */
+@media (min-width: 768px) {
+  .column_1 { flex: 0 0 8.33%; max-width: 8.33%; }
+  .column_2 { flex: 0 0 16.66%; max-width: 16.66%; }
+  .column_3 { flex: 0 0 25%; max-width: 25%; }
+  .column_4 { flex: 0 0 33.33%; max-width: 33.33%; }
+  .column_5 { flex: 0 0 41.66%; max-width: 41.66%; }
+  .column_6 { flex: 0 0 50%; max-width: 50%; }
+  .column_7 { flex: 0 0 58.33%; max-width: 58.33%; }
+  .column_8 { flex: 0 0 66.66%; max-width: 66.66%; }
+  .column_9 { flex: 0 0 75%; max-width: 75%; }
+  .column_10 { flex: 0 0 83.33%; max-width: 83.33%; }
+  .column_11 { flex: 0 0 91.66%; max-width: 91.66%; }
+  .column_12 { flex: 0 0 100%; max-width: 100%; }
+}
