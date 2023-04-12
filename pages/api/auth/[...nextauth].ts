@@ -57,9 +57,6 @@ export default NextAuth({
       session: {
         strategy:"jwt",
       },
-      pages: {
-        signIn: '/login',
-      },
       jwt: {
         secret: process.env.JWT_SECRET, // Make sure to define JWT_SECRET in your .env file
     },

@@ -2,7 +2,7 @@
 
 // Import Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LogIn from './LoginForm';
+import SignIn from './SigninForm';
 
 export default function LoginPage() {
     const handleLogin = (email: string, password: string) => {
@@ -14,7 +14,7 @@ export default function LoginPage() {
       <main className="container">
         <div className="row">
           <div className="col offset-col-3">
-            <LogIn/>
+            <SignIn/>
           </div>
         </div>
       </main>
