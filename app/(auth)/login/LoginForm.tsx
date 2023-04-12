@@ -6,26 +6,27 @@ import { useRouter } from 'next/navigation';
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-
-      
       const response = await signIn('credentials', {
         redirect: false,
         username,
         password,
       });
-      console.log(response);
-      // Redirect the user to the desired page (e.g., '/dashboard') after a successful login
-      //router.push("/");
+      if(response?.ok) {
+      router.push('/');
+      }
+      if(response?.status === 401) {
+        setErrorMessage("incorrect username or password");
+      }
+
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message)
-      } else {
-        console.log("error.message")
+        setErrorMessage(`${error.message}`);
       }
     }
   };
@@ -33,7 +34,7 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        {error && <p>{error}</p>}
+        {errorMessage && <p>{errorMessage}</p>}
         <label htmlFor="username">Email:</label>
         <input
           type="username"

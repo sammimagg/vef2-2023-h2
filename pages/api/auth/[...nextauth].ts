@@ -31,7 +31,6 @@ export default NextAuth({
           async authorize(credentials, req) {
             const {username, password} = credentials as any;
             // Add logic here to look up the user from the credentials supplied
-            console.log(process.env.NEXT_PUBLIC_API_BASE_URL)
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/login`,{
                 method: "POST",
                 headers: {
@@ -80,7 +79,6 @@ export default NextAuth({
             },
           });
           if (userResponse.ok) {
-            console.log("...")
             const userData = await userResponse.json();
             // Add user data to session
             session = { ...userData };

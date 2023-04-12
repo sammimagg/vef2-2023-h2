@@ -2,7 +2,7 @@
 
 // Import Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SignIn from './SigninForm';
+import SignIn from './SignupForm';
 
 export default function LoginPage() {
     const handleLogin = (email: string, password: string) => {
