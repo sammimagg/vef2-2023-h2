@@ -9,3 +9,20 @@ export type User = {
 export type ErrorMessage = {
   message: string;
 }
+export type DecodedToken = {
+  id: number;
+  username: string;
+  admin: boolean;
+  iat: number;
+  exp: number;
+}
+export type Event = {
+  id: number;
+  name: string;
+  slug: string;
+  location: string;
+  url: string;
+  description: string;
+  created: Date;
+  updated: Date;
+}

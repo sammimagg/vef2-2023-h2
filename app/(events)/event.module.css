@@ -1,0 +1,24 @@
+.event_card {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    background-color: #fffffF;
+    padding: 2em;
+    border-radius: 25px;
+    box-shadow: 15px 15px 0 #ff7ffb;
+    transition: box-shadow 0.5s ease-in-out;
+  }
+  
+  .event_card:hover {
+    box-shadow: 20px 20px 0 #ff00c8;
+  }
+  
+.event_card p {
+    color: black !important;
+}
+.event_card h2 {
+    color: black !important;
+    font-weight: 800;
+}
+.event_card a {
+    text-decoration: none;
+}

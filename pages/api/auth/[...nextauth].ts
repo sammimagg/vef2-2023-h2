@@ -7,12 +7,16 @@ import { use } from 'react';
 interface ExtendedJWT extends JWT {
   access_token?: string;
   isAdmin?: boolean;
+  username?: string; // Add this line
+  admin?: boolean; // Add this line
 }
+
 
 interface ExtendedSession extends Session {
   access_token?: string;
   isAdmin?: boolean;
 }
+
 
 
 export default NextAuth({
@@ -25,7 +29,7 @@ export default NextAuth({
           // e.g. domain, username, password, 2FA token, etc.
           // You can pass any HTML attribute to the <input> tag through the object.
           credentials: {
-            username: { label: "Username", type: "text", placeholder: "jsmith" },
+            username: { label: "Username", type: "text", placeholder: "" },
             password: { label: "Password", type: "password" }
           },
           async authorize(credentials, req) {
@@ -44,7 +48,7 @@ export default NextAuth({
             const user = await response.json();
 
             if(response.ok && user) {
-       
+              
               return user;
             }
             else {
@@ -59,20 +63,25 @@ export default NextAuth({
       jwt: {
         secret: process.env.JWT_SECRET, // Make sure to define JWT_SECRET in your .env file
     },
+
+
     callbacks: {
+      
       async jwt({ token, user, ...rest }): Promise<ExtendedJWT> {
-        if (token && user) {
+        if (user) {
           // Set access token and isAdmin flag in JWT token
           token.access_token = user.access_token;
+          token.userRole = user.isAdmin;
 
         }
         return token;
       },
+      
       async session({ session, token, ...rest }): Promise<ExtendedSession> {
         
         if (token && token.access_token) {
           // Fetch user data from REST API server using access token
-          console.log(process.env.NEXT_PUBLIC_API_BASE_URL)
+
           const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user`, {
             headers: {
               Authorization: `Bearer ${token.access_token}`,
@@ -88,4 +97,9 @@ export default NextAuth({
       },
       
   },
+  theme: {
+    colorScheme: "light",
+    brandColor: "#fffa7a7",
+    logo: ""
+  }
 });
