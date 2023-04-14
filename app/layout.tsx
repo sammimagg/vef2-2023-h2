@@ -17,11 +17,9 @@ export default async function RootLayout({  children}: {  children: React.ReactN
         <link rel="" href="/favaicon.ico"></link>
       </Head>
       <body>
-        <Header/>
-          <Provider>
-            {children}
-          </Provider>
-        <Footer/>
+        <Provider>
+          {children}
+        </Provider>
       </body>
     </html>
   )

@@ -16,7 +16,7 @@ interface ExtendedSession extends Session {
 
 
 export default NextAuth({
-    providers: [
+  providers: [
         CredentialsProvider({
           // The name to display on the sign in form (e.g. "Sign in with...")
           name: "Credentials",

@@ -33,27 +33,23 @@ export default function LoginForm() {
   
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        {errorMessage && <p>{errorMessage}</p>}
-        <label htmlFor="username">Email:</label>
-        <input
+      {errorMessage && <p>{errorMessage}</p>}
+      <label htmlFor="username">Username:</label>
+      <input
           type="username"
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
+      />
+      <label htmlFor="password">Password:</label>
+      <input
           type="password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-        />
-      </div>
+      />
       <button type="submit">Login</button>
     </form>
   );

@@ -78,7 +78,7 @@ export const logoutRequest = () => {
  *   "profile_picture": "http://res.cloudinary.com/dxjolxcx7/image/upload/v1679249054/images/slod.png"
  * }
  */
-
+// TODO
 export const setProfilePictureRequest = async ( id: string, accessToken: string): Promise<Response | Error> => {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${id}/profile-picture Upload Profile Picture`, {
