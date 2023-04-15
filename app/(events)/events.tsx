@@ -8,7 +8,6 @@ import styles from './event.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
 async function getEvents() {
     const res=  await getEventsList();
-    console.log(res)
     return res as any[];
 }
 export default async function Events() {
@@ -30,7 +29,7 @@ function Event({ event }: { event: Event }){
 
     return (
         <div className={styles.event_card}>
-            <Link href={`/events/${slug}`}>
+            <Link href={`/${slug}`}>
             <h2>{name}</h2>
             <p>{description}</p>
             <p>Location:{location}</p>

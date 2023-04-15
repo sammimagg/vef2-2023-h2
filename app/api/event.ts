@@ -27,7 +27,6 @@ export const getEventsList = async (): Promise<Event[] | Error> => {
           created: new Date(event.created),
           updated: new Date(event.updated),
         }));
-        console.log(events)
         return events;
       } else {
         const errorMessage = `Request failed with status ${responseFromServer.status}`;
@@ -53,30 +52,39 @@ export const getEventsList = async (): Promise<Event[] | Error> => {
  * @apiHeader {String} Authorization Bearer Token
  * @apiPermission User, Admin
  */
-export const getEventBySlug = async (slug: string):  Promise<Response | Error>  => {
+export const getEventBySlug = async (slug: string): Promise<Event | Error> => {
     try {
-        const responseFromServer = await fetch(`${process.env.NEXTAUTH_URL}/events/${slug}`,{
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-            }
-        });
-        if(responseFromServer.ok) {
-            return responseFromServer;
-        }
-        else {
-            const errorMessage = `Request faild with statsu ${responseFromServer.status}`;
-            return new Error(errorMessage);
-        }
+      const responseFromServer = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${slug}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+        },
+      });
+      if (responseFromServer.ok) {
+        const eventData = await responseFromServer.json();
+        const event: Event = {
+          id: eventData.id,
+          name: eventData.name,
+          slug: eventData.slug,
+          location: eventData.location,
+          url: eventData.url,
+          description: eventData.description,
+          created: eventData.created,
+          updated: eventData.updated,
+        };
+        return event;
+      } else {
+        const errorMessage = `Request failed with status ${responseFromServer.status}`;
+        return new Error(errorMessage);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        return error;
+      }
+      return new Error('Unknown error occurred during sign-up');
     }
-    catch (error) {
-        if (error instanceof Error) {
-            return error;
-          }
-          return new Error('Unknown error occurred during sign-up');
-    }
-
-};
+  };
+  
 /**
  * @api {post} /events/:slug Register for Event
  * @apiName RegisterForEvent

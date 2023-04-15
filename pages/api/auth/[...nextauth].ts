@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { AuthOptions } from 'next-auth';
 import  CredentialsProvider  from 'next-auth/providers/credentials';
 import { JWT } from 'next-auth/jwt';
 import { Session } from 'next-auth';
@@ -19,7 +19,7 @@ interface ExtendedSession extends Session {
 
 
 
-export default NextAuth({
+export const authOptions: AuthOptions = {
   providers: [
         CredentialsProvider({
           // The name to display on the sign in form (e.g. "Sign in with...")
@@ -102,4 +102,6 @@ export default NextAuth({
     brandColor: "#fffa7a7",
     logo: ""
   }
-});
+}
+
+export default NextAuth(authOptions)

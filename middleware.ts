@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 import { DecodedToken } from './app/types'
 export default withAuth(
   function middleware(req) {
+    console.log(req.nextauth.token)
     if (!req.nextauth || !req.nextauth.token) {
         // Redirect to the custom login page if the user is not authenticated
         return NextResponse.redirect('/login');
@@ -17,6 +18,13 @@ export default withAuth(
         if (req.nextUrl.pathname === "/admin" && !decodedToken.admin) {
           return new NextResponse("You are not authorized!");
         }
+        // Store the user object in the request object
+        const user = {
+          id: decodedToken.id,
+          name: decodedToken.username,
+          email: decodedToken.admin,
+        };
+
     }
   },
   {
