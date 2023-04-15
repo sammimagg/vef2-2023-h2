@@ -52,8 +52,24 @@ export const signUpRequest = async (
  * @apiSuccess {String} status 200 OK
  * @apiDescription Logs out the user and removes the session. The old access token will expire in 1 hour.
  */
-export const logoutRequest = () => {
-    
+export const logoutRequest = async () => {
+    try {
+      const response = await fetch('/logout', {
+        method: 'GET', 
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        }
+      });
+      if (!response.ok){
+        throw new Error('Logout request failed');
+      }
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      window.location.href = '/login';
+    } catch (error) {
+      console.error(error);
+    }
 };
 
 /**
