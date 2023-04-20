@@ -12,10 +12,7 @@ interface ExtendedJWT extends JWT {
 }
 
 
-interface ExtendedSession extends Session {
-  access_token?: string;
-  isAdmin?: boolean;
-}
+
 
 
 
@@ -77,7 +74,7 @@ export const authOptions: AuthOptions = {
         return token;
       },
       
-      async session({ session, token, ...rest }): Promise<ExtendedSession> {
+      async session({ session, token, ...rest }): Promise<Session> {
         
         if (token && token.access_token) {
           // Fetch user data from REST API server using access token
@@ -87,10 +84,22 @@ export const authOptions: AuthOptions = {
               Authorization: `Bearer ${token.access_token}`,
             },
           });
+
           if (userResponse.ok) {
-            const userData = await userResponse.json();
+            const res = await userResponse.json();
+
             // Add user data to session
-            session = { ...userData };
+            session = {
+              user: {
+                id: res.user.id,
+                name: res.user.name,
+                username: res.user.username,
+                admin: res.user.admin,
+                access_token: "",
+                profile_picture: res.user.profile_picture || '',
+              },
+              expires:"2",
+            };
           }
         }
         return session;

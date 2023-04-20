@@ -7,11 +7,11 @@ export default async function NavBar() {
 
     const session = await getServerSession(authOptions)
 
-    console.log(session?.user)
+    console.log(session)
     if(session) {
         return (
             <nav className={styles.userNav}>
-                <p>{session.user.username}</p>
+                <p>{session.user.name}</p>
                 <LogOut/>
             </nav>
         )

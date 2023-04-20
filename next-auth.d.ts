@@ -3,23 +3,22 @@ import "next-auth/jwt"
 declare module "next-auth" {
   interface User {
     id: string;
+    name: string; // Add this line
     username: string;
     isAdmin: boolean;
     access_token: string;
-    token_type: string;
-    expires_in: number;
   }
 
   interface Session {
     user: {
-        email: any;
-        id: string;
-        username: string;
-        isAdmin: boolean;
-        access_token: string;
-        token_type: string;
-        expires_in: number;
-    }
+      id: string;
+      name: string; // Add this line
+      username: string;
+      admin: boolean;
+      access_token: string;
+     
+      profile_picture: string;
+    };
   }
 }
 declare module "next-auth/jwt" {
