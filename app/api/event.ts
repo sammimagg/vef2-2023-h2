@@ -96,3 +96,34 @@ export const getEventBySlug = async (slug: string): Promise<Event | Error> => {
  * @apiHeader {String} Authorization Bearer Token
  * @apiPermission User, Admin
  */
+export const registerForEvent = async (
+  event: string,
+  username: string,
+  comment: string
+): Promise<Response | Error> => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${getEventBySlug}`, {
+      method:'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        event, 
+        username, 
+        comment
+      }),
+    });
+
+    if (response.ok){
+      return response;
+    } else {
+      const errorMessage = `Request failed with status ${response.status}`;
+      return new Error(errorMessage);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return error;
+    }
+    return new Error('Unknown error occured during register');
+  }
+}

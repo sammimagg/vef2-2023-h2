@@ -1,16 +1,23 @@
 "use client"
 import { useEffect, useState } from "react";
-import { getEventBySlug } from "../../api/event";
+import { getEventBySlug, registerForEvent } from "../../api/event";
 import { Event } from "../../types";
 import Link from "next/link";
 import styles from './event.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import { useSession } from "next-auth/react";
+import RegisterForm from "../RegisterForm";
+
 async function getEvent(slug: string): Promise<Event> {
     const res = getEventBySlug(slug);
     const data = await res;
     return data as Event
 }
+
+interface FormInput {
+  text: string;
+}
+
 export default  function EventPage({params}: {params: { slug: string };}) {
     const { slug } = params;
     const [event, setEvent] = useState<Event | null>(null);
@@ -33,6 +40,7 @@ export default  function EventPage({params}: {params: { slug: string };}) {
                 <p>{event?.description}</p>
                 <p>{event?.location}</p>
                 <a href={event?.url}/>
+                <RegisterForm/>
             </div>
         </main>
 

@@ -14,7 +14,7 @@ export default async function Events() {
     const events = await getEvents();
     return (
         <div className="col-12">
-            <h1>Upcomming events</h1>
+            <h1>Upcoming events</h1>
             <section className='col colum'>
             {Array.isArray(events) &&
             events.map((event) => {
