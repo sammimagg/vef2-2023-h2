@@ -8,7 +8,7 @@ import styles from './event.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
 async function getUserRegistered(slug:string) {
-  const res = await getUserRegisterToEventBySlug("forritarahittingur-i-februar");
+  const res = await getUserRegisterToEventBySlug(slug);
   if (res instanceof Error) {
     return null
   }
@@ -17,7 +17,8 @@ async function getUserRegistered(slug:string) {
 }
 
 export default async function UsersRegistered({ slug }: { slug: string }) {
-  const registrationList = await getUserRegistered("forritarahittingur-i-februar");
+  console.log(slug)
+  const registrationList = await getUserRegistered(slug);
   
   if (registrationList) {
     return (

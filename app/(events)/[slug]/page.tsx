@@ -34,7 +34,7 @@ export default async function EventPage({params}: {params: { slug: string };}) {
             <div className={styles.event_card}>
               <RegisterForm/>      
               {/* @ts-expect-error Server Component */}
-              <UsersRegistered/>    
+              <UsersRegistered slug={slug}/>    
             </div>
         </main>
       )
