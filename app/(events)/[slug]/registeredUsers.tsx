@@ -7,18 +7,19 @@ import Link from 'next/link';
 import styles from './event.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
-async function getUserRegistered() {
+async function getUserRegistered(slug:string) {
   const res = await getUserRegisterToEventBySlug("forritarahittingur-i-februar");
   if (res instanceof Error) {
     return null
   }
+  
   return res as any[];
 }
 
-export  default  async function UsersRegistered() {
-  const registrationList =  await getUserRegistered();
+export default async function UsersRegistered({ slug }: { slug: string }) {
+  const registrationList = await getUserRegistered("forritarahittingur-i-februar");
+  
   if (registrationList) {
-
     return (
       <div className="col-12">
         <h1>Registered to event</h1>

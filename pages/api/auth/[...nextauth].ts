@@ -45,7 +45,7 @@ export const authOptions: AuthOptions = {
             const user = await response.json();
 
             if(response.ok && user) {
-              
+              console.log(user)
               return user;
             }
             else {
@@ -95,10 +95,11 @@ export const authOptions: AuthOptions = {
                 name: res.user.name,
                 username: res.user.username,
                 admin: res.user.admin,
-                access_token: "",
+                access_token: typeof token.access_token === 'string' ? token.access_token : '',
                 profile_picture: res.user.profile_picture || '',
               },
               expires:"2",
+              
             };
           }
         }

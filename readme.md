@@ -1,3 +1,9 @@
+
+#.env.local
+NEXTAUTH_URL=http://localhost:3000/
+JWT_SECRET=superuser
+NEXTAUTH_SECRET=superuser
+NEXT_PUBLIC_API_BASE_URL=https://vef2-2023-h1-production.up.railway.app
 # Vefforritun 2, 2023, hópverkefni 2
 
 Útfæra skal React framenda með Next.js ofan á vefþjónustur úr hópverkefni 1.
