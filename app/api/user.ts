@@ -1,3 +1,5 @@
+import { SetProfilePictureResponse } from "../types";
+
 /**
  * @api {post} /signup Signup
  * @apiName Signup
@@ -95,31 +97,32 @@ export const logoutRequest = async () => {
  * }
  */
 // TODO
-export const setProfilePictureRequest = async ( id: string, accessToken: string): Promise<Response | Error> => {
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${id}/profile-picture Upload Profile Picture`, {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-        },
-        body: JSON.stringify({
-   
-        }),
-      });
-  
+
+export const setProfilePictureRequest = async (
+  id: string,
+  accessToken: string,
+  imagePath: string
+): Promise<SetProfilePictureResponse> => {
+  try {
+    const formData = new FormData();
+    formData.append('images', imagePath);
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${id}/profile-picture`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+      body: formData
+    });
+
     if (response.ok) {
-        return response;
-    } 
-    else {
-        const errorMessage = `Request failed with status ${response.status}`;
-        return new Error(errorMessage);
+      const result: SetProfilePictureResponse = await response.json();
+      return result;
+    } else {
+      throw new Error(`Request failed with status ${response.status}`);
     }
-    } 
-    catch (error) {
-        if (error instanceof Error) {
-            return error;
-        }
-    return new Error('Unknown error occurred during sign-up');
-    }
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 };
+

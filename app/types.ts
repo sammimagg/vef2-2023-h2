@@ -26,3 +26,8 @@ export type Event = {
   created: Date;
   updated: Date;
 }
+export type SetProfilePictureResponse = {
+  id: number;
+  accessToken: string;
+  profile_picture: string;
+}
