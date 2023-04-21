@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { signUpRequest } from '../../api/user';
-
+import styles from '../event.module.css'
 export default function SignupForm() {
     const [name, setName] = useState<string>('');
     const [username, setUsername] = useState<string>('');
@@ -31,7 +31,7 @@ export default function SignupForm() {
         }
     };
     return (
-        <form onSubmit={handleSubmit}>
+        <form className={styles.login_signup_form} onSubmit={handleSubmit}>
             {errorMessage && <p>{errorMessage}</p>}
             <label htmlFor="name">Name:</label>
             <input

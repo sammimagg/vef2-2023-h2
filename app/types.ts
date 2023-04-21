@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export type User = {
     id: number;
     username: string;
@@ -30,4 +32,11 @@ export type SetProfilePictureResponse = {
   id: number;
   accessToken: string;
   profile_picture: string;
+}
+export type Registration = {
+  id: number,
+  name: string,
+  username: string,
+  profile_picture: string | null,
+  comment: string | null
 }

@@ -1,5 +1,8 @@
+"use client";
 import { useSession } from "next-auth/react";
 import { registerForEvent } from "../api/event";
+
+import UsersRegistered from "./[slug]/registeredUsers";
 import { useState } from "react";
 
 export default function RegisterForm() {
@@ -28,7 +31,8 @@ export default function RegisterForm() {
           onChange={(e) => setComment(e.target.value)}
           value={comment}
         />
-        <button type="submit">Register for event as {session?.user.name}</button>
+        <button type="submit">Register for event </button>
+        
       </form>
     );
 }

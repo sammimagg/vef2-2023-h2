@@ -7,8 +7,6 @@ import Link from "next/link";
 export default async function NavBar() {
 
     const session = await getServerSession(authOptions)
-
-    console.log(session)
     if(session) {
         return (
             <nav className={styles.userNav}>
@@ -19,8 +17,6 @@ export default async function NavBar() {
                 <LogOut/>
             </nav>
         )
-
-        
     }
     return null
 }

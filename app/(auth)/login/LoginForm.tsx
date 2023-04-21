@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
-
+import styles from '../event.module.css'
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +32,7 @@ export default function LoginForm() {
   };
   
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.login_signup_form} onSubmit={handleSubmit}>
       {errorMessage && <p>{errorMessage}</p>}
       <label htmlFor="username">Username:</label>
       <input

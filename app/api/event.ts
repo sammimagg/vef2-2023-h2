@@ -1,4 +1,4 @@
-import { Event } from "../types";
+import { Event, Registration } from "../types";
 /**
  * @api {get} /events List Events
  * @apiName ListEvents
@@ -128,9 +128,9 @@ export const registerForEvent = async (
     return new Error('Unknown error occured during register');
   }
 }
-export const getUserRegisterToEventBySlug = async (slug: string): Promise<Response | Error> => {
+export const getUserRegisterToEventBySlug = async (slug: string): Promise<Registration[] | Error> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${slug}/register`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${slug}/register`, {
       method:'GET',
       headers: {
         'Content-type': 'application/json',
@@ -138,7 +138,18 @@ export const getUserRegisterToEventBySlug = async (slug: string): Promise<Respon
     });
 
     if (response.ok){
-      return response;
+
+      const data = await response.json();
+      
+      const usersRegistered: Registration[] = data.map((registration: any) => ({
+        id: registration.id,
+        name: registration.name,
+        username: registration.username,
+        profile_picture: registration.profile_picture,
+        comment: registration.comment
+      }));
+      
+      return usersRegistered;
     } else {
       const errorMessage = `Request failed with status ${response.status}`;
       return new Error(errorMessage);
