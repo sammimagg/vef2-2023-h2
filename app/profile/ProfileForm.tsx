@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { setProfilePictureRequest } from '../api/user';
 import PhotoBox from './photo';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function ProfileForm(): JSX.Element {
   const {data: session} = useSession();
@@ -16,14 +17,15 @@ export default function ProfileForm(): JSX.Element {
       const response = await setProfilePictureRequest(
         id,
         accessToken,
-        'https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg'
+        // 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg'
+        imageUrl
       );
       setImageUrl(response.profile_picture);
+      console.log(imageUrl)
     } catch (error) {
       console.error(error);
     }
   };
-
   return (
     <div>
       <h2>{session?.user.username}</h2>
@@ -32,6 +34,9 @@ export default function ProfileForm(): JSX.Element {
         <PhotoBox imageUrl={imageUrl} width={300} height={300} />
         <button type='submit'>New profile picture</button>
       </form>
+      <Link href="/">
+        <button>Homepage</button>
+      </Link>
     </div>
   );
 }

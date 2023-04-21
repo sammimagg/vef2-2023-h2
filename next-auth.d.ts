@@ -16,7 +16,7 @@ declare module "next-auth" {
       username: string;
       admin: boolean;
       access_token: string;
-     
+
       profile_picture: string;
     };
   }
