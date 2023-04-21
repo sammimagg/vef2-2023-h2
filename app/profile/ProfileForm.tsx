@@ -18,7 +18,6 @@ export default function ProfileForm(): JSX.Element {
       const response = await setProfilePictureRequest(
         id,
         accessToken,
-        // 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg'
         imageUrl
       );
       setImageUrl(response.profile_picture);
@@ -36,7 +35,6 @@ export default function ProfileForm(): JSX.Element {
   return (
     <div>
       <h2>{session?.user.username}</h2>
-      {/* <h2>{session?.user.name}</h2> */}
       <form onSubmit={handleNewProfilePicture}>
         <PhotoBox imageUrl={imageUrl} width={300} height={300} />
         <input type="file" onChange={handleImageChange} accept="image/png, image/jpg" />        
