@@ -16,3 +16,8 @@
 .userNav button {
   margin: 0!important;
 }
+.errorMessage {
+  padding: 1em;
+  background-color: brown;
+  border-radius: 10px;
+}

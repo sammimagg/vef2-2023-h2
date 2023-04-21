@@ -2,11 +2,11 @@ import { getEventBySlug, registerForEvent } from "../../api/event";
 import { Event } from "../../types";
 import styles from './event.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import RegisterForm from "../RegisterForm";
 import UsersRegistered from "./registeredUsers";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 import Nav from "../../nav";
+import RegisterForm from "./RegisterForm";
 
 async function getEvent(slug: string): Promise<Event> {
     const res = getEventBySlug(slug);
@@ -32,7 +32,7 @@ export default async function EventPage({params}: {params: { slug: string };}) {
 
             </div>
             <div className={styles.event_card}>
-              <RegisterForm/>      
+              <RegisterForm slug={slug}/>      
               {/* @ts-expect-error Server Component */}
               <UsersRegistered slug={slug}/>    
             </div>

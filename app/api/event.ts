@@ -98,18 +98,19 @@ export const getEventBySlug = async (slug: string): Promise<Event | Error> => {
  * @apiPermission User, Admin
  */
 export const registerForEvent = async (
-  event: string,
+  accessToken: string,
+  slug: string,
   username: string,
   comment: string
 ): Promise<Response | Error> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${getEventBySlug}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${slug}`, {
       method:'POST',
       headers: {
-        'Content-type': 'application/json',
+        Authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify({
-        event, 
+        slug, 
         username, 
         comment
       }),
@@ -118,7 +119,7 @@ export const registerForEvent = async (
     if (response.ok){
       return response;
     } else {
-      const errorMessage = `Request failed with status ${response.status}`;
+      const errorMessage = `Already Register`;
       return new Error(errorMessage);
     }
   } catch (error) {
