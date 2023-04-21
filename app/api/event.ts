@@ -41,6 +41,7 @@ export const getEventsList = async (): Promise<Event[] | Error> => {
   };
 
 
+
 /**
  * @api {get} /events/:slug Get Event
  * @apiName GetEvent
@@ -112,6 +113,28 @@ export const registerForEvent = async (
         username, 
         comment
       }),
+    });
+
+    if (response.ok){
+      return response;
+    } else {
+      const errorMessage = `Request failed with status ${response.status}`;
+      return new Error(errorMessage);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return error;
+    }
+    return new Error('Unknown error occured during register');
+  }
+}
+export const getUserRegisterToEventBySlug = async (slug: string): Promise<Response | Error> => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${slug}/register`, {
+      method:'GET',
+      headers: {
+        'Content-type': 'application/json',
+      },
     });
 
     if (response.ok){

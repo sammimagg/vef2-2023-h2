@@ -1,3 +1,4 @@
+import { error } from "console";
 import { SetProfilePictureResponse } from "../types";
 
 /**
@@ -125,4 +126,19 @@ export const setProfilePictureRequest = async (
     throw new Error(error.message);
   }
 };
-
+export const getListOfRegisterEventFromId = async (
+  id: string
+): Promise<Response | Error> => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${id}/registered`,{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      return response
+    }catch(error) {
+      console.error(error)
+      return new Error()
+    }
+}
