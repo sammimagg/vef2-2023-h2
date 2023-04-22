@@ -162,3 +162,45 @@ export const getUserRegisterToEventBySlug = async (slug: string): Promise<Regist
     return new Error('Unknown error occured during register');
   }
 }
+export const isUserRegisterToEvent = async (accessToken: string,slug: string, userId: string): Promise<boolean | Error> => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/${slug}`, {
+      method:'GET',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${accessToken}`
+      },
+    });
+    const data = await response.json();
+    if (data){
+      if(data[0].exists)
+        return true
+      else
+        return false
+    }
+  }catch(error) {
+    if(error instanceof Error) {
+      return new Error('Error')
+    }
+  }
+  return new Error('Error on api')
+}
+export const unregisterUserToEvent = async (accessToken: string,slug: string, userId: string): Promise<boolean | Error> => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/${slug}`, {
+      method:'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${accessToken}`
+      },
+    });
+    if (response.ok){
+      return true;
+    }
+  }catch(error) {
+    if(error instanceof Error) {
+      return new Error('Error')
+    }
+  }
+  return new Error('Error on api')
+}
