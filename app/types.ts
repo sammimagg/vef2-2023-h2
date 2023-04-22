@@ -8,6 +8,13 @@ export type User = {
     token_type: string;
     expires_in: number;
   }
+export type UserList = {
+  id: number;
+  name: string;
+  username: string;
+  admin: boolean;
+  profile_picture?: string;
+}
 export type ErrorMessage = {
   message: string;
 }
@@ -27,6 +34,12 @@ export type Event = {
   description: string;
   created: Date;
   updated: Date;
+}
+export type EventInfo = {
+  id: number;
+  name: string;
+  location: string;
+  url: string;
 }
 export type SetProfilePictureResponse = {
   id: number;

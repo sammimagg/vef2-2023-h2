@@ -1,10 +1,15 @@
 import CreateEventForm from './CreateEventForm'
 import { NextApiRequest, NextApiResponse } from 'next'
-
-export default async function Page() {
+import 'bootstrap/dist/css/bootstrap.css'
+import Events from './Events';
+export default async function Page({params}: {params: { slug: string };}) {
+    const { slug } = params;
+    console.log(slug)
     return (
-        <div>
+        <main className='container'>
             <CreateEventForm/>
-        </div>
+            {/* @ts-expect-error Server Component */}
+            <Events/>
+        </main>
     );
 }

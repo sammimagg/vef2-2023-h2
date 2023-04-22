@@ -1,60 +1,77 @@
 'use client'
 import { useState } from "react";
-import { newEventRequest } from "./createEvent";
-import { createEvent } from "../api/admin";
+import { createEventAPI } from "../api/admin";
+import styles from './event.module.css'
+import globalStyle from '../page.module.css'
+import { useSession } from "next-auth/react";
+import { EventInfo } from '../types';
+export async function createEvent (
+    accessToken:string,
+    name: string,
+    description: string,
+    location: string,
+    url: string,
+    slug: string): Promise<EventInfo | Error> {
+    
+    const res = await createEventAPI(accessToken,name,description,location,url,slug);
+    if(res instanceof Error) {
+        return res
+    }
+    return res
+}
 
-export default function CreateEventForm(): JSX.Element{
-    const [id, setId] = useState<number>(0);
+export default function CreateEventForm({ slug }: { slug: string }): JSX.Element{
+    console.log(slug)
+    const {data: session}= useSession();
     const [name, setName] = useState<string>('');
-    const [slug, setSlug] = useState<string>('');
     const [location, setLocation] = useState<string>('');
     const [url, setUrl] = useState<string>('');
     const [description, setDescription] = useState<string>('');
-    let created = Date();
-    let updated = Date();
-    
+    const [errorMessage, setErrorMessage] = useState<string>("");
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Reyna að búa til nýtt event");
-        const res = await newEventRequest(id, name, slug, location, url, description, created, updated);
-        if(res instanceof Response){
-            await createEvent(name, description, location, url, slug);
-        } else {
-            console.error(e)
-        }
+        if (session) {
+            const res = await createEvent(session.user.access_token, name,description,location,url,slug)
+            if (res instanceof Error) {
+                setErrorMessage(res.message);
+            }
+            else {
+              window.location.reload();
+            }
+          }
+
+
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <h2>Event:</h2>
-                <textarea
+        <div className={styles.event_card}>
+            <h1>New event</h1>
+            {errorMessage && <p className={globalStyle.ErrorMessage}>{errorMessage}</p>}
+            <form onSubmit={handleSubmit}>
+                <label>Name:</label>
+                <input
                 value={name}
                 onChange= {(e) => {setName(e.target.value)}}
                 required/>
-            </div>
-            <div>
-                <h2>Description:</h2>
+                <label>Location:</label>
+                <input
+                value={location}
+                onChange= {(e) => {setLocation(e.target.value)}}
+                required/>
+                <label>URL:</label>
+                <input
+                value={url}
+                onChange= {(e) => {setUrl(e.target.value)}}
+                required/>
+                <label>Description:</label>
                 <textarea
                 value={description}
                 onChange= {(e) => {setDescription(e.target.value)}}
                 required/>
-            </div>
-            <div>
-                <h2>Location:</h2>
-                <textarea
-                value={location}
-                onChange= {(e) => {setLocation(e.target.value)}}
-                required/>
-            </div>
-            <div>
-                <h2>URL:</h2>
-                <textarea
-                value={url}
-                onChange= {(e) => {setUrl(e.target.value)}}
-                required/>
-            </div>
-            <button type='submit'>Create event</button>
-        </form>
+                <button type='submit'>Create event</button>
+            </form>
+        </div>
+
     );
 }
