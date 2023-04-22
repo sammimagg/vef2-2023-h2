@@ -14,7 +14,7 @@ export default function RegisterForm({ slug }: { slug: string }) {
     const register = async(e: React.FormEvent) => {
       e.preventDefault();
       if (session) {
-        const res = await registerForEvent(session.user.access_token, slug, "admin", comment);
+        const res = await registerForEvent(session.user.access_token, slug, session.user.username,comment);
         if (res instanceof Error) {
           setErrorMessage(res.message);
         }

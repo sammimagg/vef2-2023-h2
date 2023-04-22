@@ -105,17 +105,19 @@ export const registerForEvent = async (
 ): Promise<Response | Error> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${slug}`, {
+      cache: 'no-store',
       method:'POST',
       headers: {
+        'Content-type': 'application/json',
         Authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify({
-        slug, 
         username, 
         comment
       }),
     });
-
+    const data = await response.json();
+    console.log(data.registrations)
     if (response.ok){
       return response;
     } else {
@@ -135,7 +137,7 @@ export const getUserRegisterToEventBySlug = async (slug: string): Promise<Regist
       method:'GET',
       headers: {
         'Content-type': 'application/json',
-      },
+      },cache: 'no-store'
     });
 
     if (response.ok){
@@ -165,6 +167,7 @@ export const getUserRegisterToEventBySlug = async (slug: string): Promise<Regist
 export const isUserRegisterToEvent = async (accessToken: string,slug: string, userId: string): Promise<boolean | Error> => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/${slug}`, {
+      cache: 'no-store',
       method:'GET',
       headers: {
         'Content-type': 'application/json',
@@ -193,8 +196,15 @@ export const unregisterUserToEvent = async (accessToken: string,slug: string, us
         'Content-type': 'application/json',
         Authorization: `Bearer ${accessToken}`
       },
+      body: JSON.stringify({
+        userId
+
+      }),
     });
+    const data =  await response.json();
+    console.log(data)
     if (response.ok){
+
       return true;
     }
   }catch(error) {
