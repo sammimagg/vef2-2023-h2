@@ -1,16 +1,19 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { setProfilePictureRequest } from '../api/user';
+import { setProfilePictureRequest, updateProfile } from '../api/user';
 import PhotoBox from './photo';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import Nav from '../nav';
+import { error } from 'console';
 
 export default function ProfileForm(): JSX.Element {
   const { data: session } = useSession();
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  const [username, setUsername] = useState(session?.user.username ?? '');
+  const [name, setName] = useState(session?.user.name ?? '');  
   const id: string = session?.user.id ?? '';
   const accessToken: string = session?.user.access_token ?? '';
 
@@ -21,29 +24,43 @@ export default function ProfileForm(): JSX.Element {
     }
   }, [session]);
 
-  const handleNewProfilePicture = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleUpdateProfile = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    if (!image) {
-      console.log('No image selected');
-      return;
-    }
+
     setIsLoading(true);
+  
     try {
-      const response = await setProfilePictureRequest(
-        id,
-        accessToken,
-        image
-      );
-      const updatedImageUrl = `${response.profile_picture}?${Date.now()}`;
-      setImageUrl(updatedImageUrl);
+      // Update profile picture if an image is selected
+      if (image) {
+        console.log("img insert")
+        const response = await setProfilePictureRequest(id, accessToken, image);
+        const updatedImageUrl = `${response.profile_picture}?${Date.now()}`;
+        setImageUrl(updatedImageUrl);
+      }
+  
+      // Update the username and name
+      if(session){
+        console.log('Updating profile with:', {
+          accessToken: session.user.access_token,
+          id: session.user.id,
+          username: username,
+          name: name,
+        }); // Add this line
+        const res = await updateProfile(session.user.access_token,session.user.id, username, name);
+        setUsername(username)
+        setName(name)
+      }
       
-      window.location.reload();
+      // Handle the response as needed, e.g., show a success message or update the session data
+  
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
+      
     }
   };
+  
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -51,18 +68,23 @@ export default function ProfileForm(): JSX.Element {
   };
   
   return (
-    <div>
-      <h2>{session?.user.username}</h2>
-      {/* <h2>{session?.user.name}</h2> */}
-      <form onSubmit={handleNewProfilePicture}>
+    <>
+      <form onSubmit={handleUpdateProfile}>
         <PhotoBox imageUrl={imageUrl} width={300} height={300} />
         {isLoading && <p>Loading...</p>}
-        <input type="file" onChange={handleImageChange} accept="image/png, image/jpg" />        
-        <button type='submit'>New profile picture</button>
+        <input type="file" onChange={handleImageChange} accept="image/png, image/jpg" />
+        <label>Name:</label>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <label>Username:</label>
+        <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <button type='submit'>Update profile</button>
       </form>
-      <Link href="/">
-        <button>Homepage</button>
-      </Link>
-    </div>
+    </>
   );
 }
