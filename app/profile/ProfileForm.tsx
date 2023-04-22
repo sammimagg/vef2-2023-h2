@@ -21,6 +21,8 @@ export default function ProfileForm(): JSX.Element {
     if (session) {
       console.log(session.user.profile_picture)
       setImageUrl(session.user.profile_picture);
+      setName(session.user.name)
+      setUsername(session.user.username)
     }
   }, [session]);
 
@@ -77,11 +79,6 @@ export default function ProfileForm(): JSX.Element {
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-        />
-        <label>Username:</label>
-        <input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
         />
         <button type='submit'>Update profile</button>
       </form>

@@ -146,31 +146,31 @@ export const getListOfRegisterEventFromId = async (
       return new Error()
     }
 }
-export const updateProfile = async(
-  accessToken:string,
+export const updateProfile = async (
+  accessToken: string,
   id: string,
   username: string,
   name: string
 ): Promise<Response | Error> => {
-    console.log(username)
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/${id}`,{
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
-          body: JSON.stringify({
-            username,
-            name
-          }),
-        }
-      })
-      const data = await response.json()
-      console.log('updateProfile response:', data); // Add this line
+  console.log(username);
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        username,
+        name,
+      }),
+    });
+    const data = await response.json();
+    console.log('updateProfile response:', data); // Add this line
 
-      return data;
-    }catch(error) {
-      console.error(error)
-      return new Error()
-    }
-}
+    return data;
+  } catch (error) {
+    console.error(error);
+    return new Error();
+  }
+};
