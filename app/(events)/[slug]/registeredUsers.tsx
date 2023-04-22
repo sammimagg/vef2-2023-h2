@@ -73,5 +73,4 @@ function  UserRegistered({ registered }: { registered: Registration }) {
       </div>
     )
   }
-
 }
