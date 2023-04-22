@@ -1,8 +1,5 @@
-
-import { NextApiRequest, NextApiResponse } from 'next'
 import { getEventsList } from '../api/event';
 import { Event } from '../types'
-import { title } from 'process';
 import Link from 'next/link';
 import styles from './event.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -15,6 +12,9 @@ export default async function Events() {
     return (
         <div className="col-12">
             <h1>Upcoming events</h1>
+            <Link href="/login">
+                <button>login</button>
+            </Link>
             <section className='col colum'>
             {Array.isArray(events) &&
             events.map((event) => {

@@ -1,3 +1,4 @@
+import { getToken } from "next-auth/jwt";
 
 /**
  * @api {patch} /admin/:slug Update Event
@@ -73,4 +74,26 @@
  *   "url": "prufa"
  * }
  */
-
+export async function createEvent(name: string, description: string, location: string, url: string, slug: string) {
+    const token = getToken; // function to retrieve the user's bearer token
+  
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/${slug}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            description,
+            location,
+            url
+        })
+    });
+    if (response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Failed to create event');
+    }
+  }
+  

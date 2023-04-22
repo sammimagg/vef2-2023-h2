@@ -8,7 +8,6 @@ export default function ProfilePage() {
         <main className='container'>
             {/* @ts-expect-error Server Component */}
             <Nav/>
-            {/* @ts-expect-error Server Component */}
             <ProfileForm/>
         </main>
 

@@ -1,6 +1,10 @@
-
+import CreateEventForm from './CreateEventForm'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function Page() {
-    return <p>Test Admin</p>
+    return (
+        <div>
+            <CreateEventForm/>
+        </div>
+    );
 }
