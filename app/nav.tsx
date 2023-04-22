@@ -1,5 +1,4 @@
 import { getServerSession } from "next-auth/next";
-import { signOut } from "next-auth/react";
 import LogOut from "./Logout-btn"
 import { authOptions } from "../pages/api/auth/[...nextauth]"
 import styles from "./page.module.css"
@@ -11,12 +10,12 @@ export default async function NavBar() {
         return (
             <nav className={styles.userNav}>
                 <p>{session.user.name}</p>
-                <Link href="profile">
-                    <button>Profile page</button>
+                <Link className="profileLink" href="profile">
+                    Profile page
                 </Link>
                 <LogOut/>
             </nav>
-        )
+        );
     }
     return null
 }

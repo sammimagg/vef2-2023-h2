@@ -19,6 +19,8 @@ export default function CreateEventForm(): JSX.Element{
         const res = await newEventRequest(id, name, slug, location, url, description, created, updated);
         if(res instanceof Response){
             await createEvent(name, description, location, url, slug);
+        } else {
+            console.error(e)
         }
     }
 

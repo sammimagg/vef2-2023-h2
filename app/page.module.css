@@ -21,3 +21,8 @@
   background-color: brown;
   border-radius: 10px;
 }
+.profileLink {
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}

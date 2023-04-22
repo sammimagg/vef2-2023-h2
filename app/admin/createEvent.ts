@@ -9,8 +9,8 @@ export const newEventRequest = async (
     updated: string
     ): Promise<Response | Error> => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/newEvent`, {
-            method:'PUT',
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin`, {
+            method:'POST',
             headers: {
                 'Content-type': 'application/json',
             },
