@@ -1,5 +1,5 @@
-import { getToken } from "next-auth/jwt";
-import { User, UserInfo, UserList } from "../types";
+
+import { User, UserList } from "../types";
 
 /**
  * @api {patch} /admin/:slug Update Event
@@ -177,31 +177,32 @@ export const deleteEventAPI = async(
  *   "url": "prufa"
  * }
  */
-export async function createEvent(
-    accessToken:string,
-    name: string, 
+export async function createEventAPI(
+    accessToken: string,
+    name: string,
     description: string,
     location: string,
-    url: string,
-    slug: string
-    ) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/${slug}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-        },
-        body: JSON.stringify({
-            name,
-            description,
-            location,
-            url
-        })
+    url: string
+  ) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      body: JSON.stringify({
+        name,
+        description,
+        location,
+        url
+      })
     });
+  
+    const data = await response.json();
     if (response.ok) {
-        return response.json();
+      return data;
     } else {
-        throw new Error('Failed to create event');
+      throw new Error('Failed to create event');
     }
   }
   
