@@ -102,17 +102,19 @@ export const logoutRequest = async () => {
 export const setProfilePictureRequest = async (
   id: string,
   accessToken: string,
-  imagePath: string
+  imageFile: File
 ): Promise<SetProfilePictureResponse> => {
+  const headers = {
+    'Authorization': `Bearer ${accessToken}`
+  };
+
   try {
     const formData = new FormData();
-    formData.append('images', imagePath);
+    formData.append('images', imageFile);
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/${id}/profile-picture`, {
       method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
-      },
+      headers: headers,
       body: formData
     });
 
@@ -126,6 +128,8 @@ export const setProfilePictureRequest = async (
     throw new Error(error.message);
   }
 };
+
+
 export const getListOfRegisterEventFromId = async (
   id: string
 ): Promise<Response | Error> => {
