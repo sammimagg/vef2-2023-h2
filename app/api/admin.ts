@@ -182,8 +182,7 @@ export async function createEventAPI(
     name: string,
     description: string,
     location: string,
-    url: string,
-    slug: string
+    url: string
   ) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin`, {
       method: 'POST',
