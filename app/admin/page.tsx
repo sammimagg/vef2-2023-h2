@@ -7,6 +7,7 @@ export default async function Page({params}: {params: { slug: string };}) {
     console.log(slug)
     return (
         <main className='container'>
+            {/* @ts-expect-error Server Component */}
             <CreateEventForm/>
             {/* @ts-expect-error Server Component */}
             <Events/>
