@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 import UpdateForm from './UpdateForm';
 import DeleteButton from './DeleteEvent';
+import Nav from '../../nav';
 
 
 
@@ -21,8 +22,10 @@ import DeleteButton from './DeleteEvent';
     if (session) {
       return (
         <main className="container">
-          <UpdateForm slug={slug} />
+           {/* @ts-expect-error Server Component */}
+          <Nav/>
           <DeleteButton slug={slug}/>
+          <UpdateForm slug={slug} />
         </main>
       );
     }
