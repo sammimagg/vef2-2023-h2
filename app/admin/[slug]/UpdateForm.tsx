@@ -37,7 +37,7 @@ export default function UpdateForm({ slug }: { slug: string }) {
 
       };
       fetchEvent();
-    }, []);
+    }, [slug]);
   
     const update = async (e: React.FormEvent) => {
       e.preventDefault();

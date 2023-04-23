@@ -45,7 +45,9 @@ function  UserRegistered({ registered }: { registered: Registration }) {
     return (
       <div className={`row ${styles.comment}`}>
         <div className={`col-md-1 ${styles.col}`}>
-          <img src={profile_picture} alt={name} />
+          <picture>
+            <img src={profile_picture} alt={name} />
+          </picture>
         </div>
         <div className={`col-md-11 ${styles.col}`}>
           <h5>{name}</h5>
