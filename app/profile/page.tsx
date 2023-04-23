@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import Nav from "../nav";
 import ProfileForm from "./ProfileForm";
 
@@ -9,6 +10,9 @@ export default function ProfilePage() {
             {/* @ts-expect-error Server Component */}
             <Nav/>
             <ProfileForm/>
+            <Link href="/">
+                <button>Home page</button>
+            </Link>
         </main>
 
     );
