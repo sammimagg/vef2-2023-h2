@@ -10,18 +10,17 @@ export async function createEvent (
     name: string,
     description: string,
     location: string,
-    url: string,
-    slug: string): Promise<EventInfo | Error> {
-    
-    const res = await createEventAPI(accessToken,name,description,location,url,slug);
+    url: string): Promise<EventInfo | Error> {
+    //accessToken, name, description, location, url)
+    const res = await createEventAPI(accessToken, name, description, location, url);
     if(res instanceof Error) {
         return res
     }
     return res
 }
 
-export default function CreateEventForm({ slug }: { slug: string }): JSX.Element{
-    console.log(slug)
+export default function CreateEventForm(): JSX.Element{
+
     const {data: session}= useSession();
     const [name, setName] = useState<string>('');
     const [location, setLocation] = useState<string>('');
@@ -32,7 +31,7 @@ export default function CreateEventForm({ slug }: { slug: string }): JSX.Element
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (session) {
-            const res = await createEvent(session.user.access_token, name,description,location,url,slug)
+            const res = await createEvent(session.user.access_token, name,description,location,url)
             if (res instanceof Error) {
                 setErrorMessage(res.message);
             }

@@ -3,13 +3,13 @@ import { useSession } from "next-auth/react";
 import { getEventBySlug, registerForEvent } from "../../api/event";
 import { useEffect, useState } from "react";
 import globalStyle from "../../page.module.css"
-import { ErrorMessage } from '../../types';
+import { ErrorMessage, EventInfo } from '../../types';
 import { useRouter } from "next/navigation"
 import { updateEventAPI } from "../../api/admin";
 
 export default function UpdateForm({ slug }: { slug: string }) {
     const { data: session } = useSession();
-    const [event, setEvent] = useState<Event | null>(null);
+    const [event, setEvent] = useState<EventInfo | null>(null);
     const [name, setName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [location, setLocation] = useState<string>("");
@@ -18,16 +18,20 @@ export default function UpdateForm({ slug }: { slug: string }) {
     const router = useRouter();
     useEffect(() => {
       const fetchEvent = async () => {
-        const event = await getEventBySlug(slug);
-        if(event instanceof Error) {
-            console.log(event.message)
-        }
+        const eventInfo: EventInfo = await getEventBySlug(slug);
         if(event) {
-            setEvent(event);
-            setName(event.name);
-            setDescription(event.description);
-            setLocation(event.location);
-            setUrl(event.url);
+          const event: EventInfo = {
+            id: eventInfo.id,
+            name: eventInfo.name,
+            location: eventInfo.location,
+            url: eventInfo.url,
+            description: eventInfo.description,
+          };
+              setEvent(event);
+          setName(event.name);
+          setDescription(event.description);
+          setLocation(event.location);
+          setUrl(event.url);
         }
 
       };

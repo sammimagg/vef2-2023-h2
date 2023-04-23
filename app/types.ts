@@ -39,6 +39,7 @@ export type EventInfo = {
   id: number;
   name: string;
   location: string;
+  description:string;
   url: string;
 }
 export type SetProfilePictureResponse = {

@@ -1,4 +1,4 @@
-import { Event, Registration } from "../types";
+import { Event, EventInfo, Registration } from "../types";
 /**
  * @api {get} /events List Events
  * @apiName ListEvents
@@ -53,7 +53,8 @@ export const getEventsList = async (): Promise<Event[] | Error> => {
  * @apiHeader {String} Authorization Bearer Token
  * @apiPermission User, Admin
  */
-export const getEventBySlug = async (slug: string): Promise<Event | Error> => {
+export const getEventBySlug = async (slug: string): Promise<EventInfo> => {
+    const nullEvent: EventInfo ={id: 0,name:"",location:"",description:"",url:""}
     try {
       const responseFromServer = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/events/${slug}`, {
         method: 'GET',
@@ -76,14 +77,15 @@ export const getEventBySlug = async (slug: string): Promise<Event | Error> => {
         return event;
       } else {
         const errorMessage = `Request failed with status ${responseFromServer.status}`;
-        return new Error(errorMessage);
+        console.error(errorMessage);
       }
     } catch (error) {
       if (error instanceof Error) {
-        return error;
+        console.error(error);
       }
-      return new Error('Unknown error occurred during sign-up');
+      console.error(error);
     }
+    return nullEvent;
   };
   
 /**
