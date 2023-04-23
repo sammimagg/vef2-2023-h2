@@ -15,20 +15,24 @@ export default function SignupForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (password.length < 10) {
+          setErrorMessage('Password must contain at least 10 characters');
+          return;
+        }
         const res =  await signUpRequest(name, username, password,email);
-       
-        if(res instanceof Response ) {
-            const response = await signIn('credentials', {
-                redirect: false,
-                username,
-                password,
-              });
-            router.push('/');
+        if (res instanceof Response ) {
+          const response = await signIn('credentials', {
+            redirect: false,
+            username,
+            password,
+          });
+          router.push('/');
         }
-        else if(res instanceof Error) {
-            setErrorMessage(`User/username already exist, please try again`);
+        else if (res instanceof Error) {
+          setErrorMessage(`User/username already exist, please try again`);
         }
-    };
+      };
+      
     return (
         <form className={styles.login_signup_form} onSubmit={handleSubmit}>
             {errorMessage && <p>{errorMessage}</p>}
