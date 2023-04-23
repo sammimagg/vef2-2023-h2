@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Events from './Events';
 export default async function Page({params}: {params: { slug: string };}) {
     const { slug } = params;
-    console.log(slug)
     return (
         <main className='container'>
             <CreateEventForm/>

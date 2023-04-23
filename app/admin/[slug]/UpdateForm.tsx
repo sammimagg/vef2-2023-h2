@@ -19,7 +19,7 @@ export default function UpdateForm({ slug }: { slug: string }) {
     useEffect(() => {
       const fetchEvent = async () => {
         const eventInfo: EventInfo = await getEventBySlug(slug);
-        if(event) {
+        if(eventInfo) {
           const event: EventInfo = {
             id: eventInfo.id,
             name: eventInfo.name,
@@ -27,11 +27,12 @@ export default function UpdateForm({ slug }: { slug: string }) {
             url: eventInfo.url,
             description: eventInfo.description,
           };
-              setEvent(event);
-          setName(event.name);
-          setDescription(event.description);
-          setLocation(event.location);
-          setUrl(event.url);
+          setEvent(eventInfo);
+
+          setName(eventInfo.name);
+          setDescription(eventInfo.description);
+          setLocation(eventInfo.location);
+          setUrl(eventInfo.url);
         }
 
       };
@@ -49,7 +50,6 @@ export default function UpdateForm({ slug }: { slug: string }) {
           location,
           url
         );
-        console.log(res);
         if (res instanceof Error) {
           setErrorMessage(res.message);
         } else {
@@ -72,7 +72,7 @@ export default function UpdateForm({ slug }: { slug: string }) {
               onChange={(e) => {
                 setName(e.target.value);
               }}
-              required
+              readOnly
             />
             <label>Location:</label>
             <input
@@ -101,4 +101,3 @@ export default function UpdateForm({ slug }: { slug: string }) {
       </form>
     );
   }
-  

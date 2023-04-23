@@ -5,13 +5,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 import UpdateForm from './UpdateForm';
+import DeleteButton from './DeleteEvent';
 
 
-async function getEvent(slug: string): Promise<Event> {
-    const res = getEventBySlug(slug);
-    const data = await res;
-    return data as Event;
-  }
+
   
   export default async function EventPage({
     params,
@@ -25,6 +22,7 @@ async function getEvent(slug: string): Promise<Event> {
       return (
         <main className="container">
           <UpdateForm slug={slug} />
+          <DeleteButton slug={slug}/>
         </main>
       );
     }

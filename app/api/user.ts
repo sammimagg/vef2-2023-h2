@@ -152,7 +152,6 @@ export const updateProfile = async (
   username: string,
   name: string
 ): Promise<Response | Error> => {
-  console.log(username);
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/${id}`, {
       method: 'PUT',
@@ -166,7 +165,6 @@ export const updateProfile = async (
       }),
     });
     const data = await response.json();
-    console.log('updateProfile response:', data); // Add this line
 
     return data;
   } catch (error) {

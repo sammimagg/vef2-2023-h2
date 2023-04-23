@@ -19,7 +19,6 @@ export default function ProfileForm(): JSX.Element {
 
   useEffect(() => {
     if (session) {
-      console.log(session.user.profile_picture)
       setImageUrl(session.user.profile_picture);
       setName(session.user.name)
       setUsername(session.user.username)
@@ -34,7 +33,6 @@ export default function ProfileForm(): JSX.Element {
     try {
       // Update profile picture if an image is selected
       if (image) {
-        console.log("img insert")
         const response = await setProfilePictureRequest(id, accessToken, image);
         const updatedImageUrl = `${response.profile_picture}?${Date.now()}`;
         setImageUrl(updatedImageUrl);
@@ -42,12 +40,6 @@ export default function ProfileForm(): JSX.Element {
   
       // Update the username and name
       if(session){
-        console.log('Updating profile with:', {
-          accessToken: session.user.access_token,
-          id: session.user.id,
-          username: username,
-          name: name,
-        }); // Add this line
         const res = await updateProfile(session.user.access_token,session.user.id, username, name);
         setUsername(username)
         setName(name)
@@ -56,7 +48,6 @@ export default function ProfileForm(): JSX.Element {
       // Handle the response as needed, e.g., show a success message or update the session data
   
     } catch (error) {
-      console.log(error);
     } finally {
       setIsLoading(false);
       

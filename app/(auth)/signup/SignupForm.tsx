@@ -15,7 +15,6 @@ export default function SignupForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("reyna að signa up")
         const res =  await signUpRequest(name, username, password,email);
        
         if(res instanceof Response ) {
