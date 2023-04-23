@@ -63,7 +63,6 @@ export default function UpdateForm({ slug }: { slug: string }) {
         {errorMessage && (
           <p className={globalStyle.ErrorMessage}>{errorMessage}</p>
         )}
-        <p>Comment:</p>
         {event && (
           <>
             <label>Name:</label>

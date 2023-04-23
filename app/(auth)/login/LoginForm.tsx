@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { signIn } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import styles from '../event.module.css'
+import Link from 'next/link';
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -51,6 +52,7 @@ export default function LoginForm() {
           required
       />
       <button type="submit">Login</button>
+      <Link href="./signup">Sign up ?</Link>
     </form>
   );
 }

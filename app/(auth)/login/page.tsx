@@ -3,6 +3,7 @@
 // Import Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogIn from './LoginForm';
+import Link from 'next/link';
 
 export default function LoginPage() {
     const handleLogin = (email: string, password: string) => {
@@ -14,6 +15,7 @@ export default function LoginPage() {
         <div className="row">
           <div className="col offset-col-3">
             <LogIn/>
+            
           </div>
         </div>
       </main>
