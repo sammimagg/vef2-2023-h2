@@ -29,8 +29,8 @@ export const updateEventAPI = async(
     url: string
 ): Promise<Response | Error> => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/signup`, {
-          method: 'POST',
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/${slug}`, {
+          method: 'PATCH',
           headers: {
             'Content-type': 'application/json',
             'Authorization': `Bearer ${accessToken}`
