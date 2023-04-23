@@ -18,10 +18,13 @@ export default async function Events() {
         <div className="col-12">
             <h1>Upcoming events</h1>
             {!session ? (
-                <Link href="/login">
+                <><Link href="/login">
                     <button>Log in</button>
                 </Link>
-                ) : null}
+                <Link href="/signup">
+                    <button>Sign up</button>
+                </Link></>
+            ) : null}
             <section className='col colum'>
             {Array.isArray(events) &&
             events.map((event) => {
