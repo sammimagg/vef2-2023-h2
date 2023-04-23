@@ -6,8 +6,7 @@ import LogIn from './LoginForm';
 
 export default function LoginPage() {
     const handleLogin = (email: string, password: string) => {
-        // Perform the login action
-        console.log(`Email: ${email}, Password: ${password}`);
+
       };
 
     return (

@@ -9,7 +9,6 @@ import { useSession } from "next-auth/react";
 export default async function NavBar() {
 
     const session = await getServerSession(authOptions)
-    console.log(session?.user.profile_picture)
     if(session?.user.admin){
         return (
             <nav className={styles.userNav}>

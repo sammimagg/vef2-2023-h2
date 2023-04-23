@@ -11,7 +11,7 @@ export async function createEvent (
     description: string,
     location: string,
     url: string): Promise<EventInfo | Error> {
-    //accessToken, name, description, location, url)
+    //accessToken, name, description, location, url: string)
     const res = await createEventAPI(accessToken,name,description,location,url);
     if(res instanceof Error) {
         return res

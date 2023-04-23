@@ -119,7 +119,6 @@ export const registerForEvent = async (
       }),
     });
     const data = await response.json();
-    console.log(data.registrations)
     if (response.ok){
       return response;
     } else {
@@ -204,7 +203,6 @@ export const unregisterUserToEvent = async (accessToken: string,slug: string, us
       }),
     });
     const data =  await response.json();
-    console.log(data)
     if (response.ok){
 
       return true;

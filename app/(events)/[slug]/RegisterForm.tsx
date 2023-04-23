@@ -10,7 +10,6 @@ export default function RegisterForm({ slug }: { slug: string }) {
     const {data: session}= useSession();
     const [comment, setComment] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
-    console.log(slug)
     const register = async(e: React.FormEvent) => {
       e.preventDefault();
       if (session) {
