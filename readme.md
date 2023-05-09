@@ -4,6 +4,10 @@ JWT_SECRET=superuser
 NEXTAUTH_SECRET=superuser
 NEXT_PUBLIC_API_BASE_URL=https://vef2-2023-h1-production.up.railway.app
 
+TEST Users:
+username:admin,lykilorð:0123456789
+username:user,lykilorð:0123456789
+
 # Verkefni unnið af:
 Samúel Magnússon sam38@hi.is
 Hákon Ingi Rafnsson hir12@hi.is
